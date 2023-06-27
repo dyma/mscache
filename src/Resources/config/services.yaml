@@ -1,0 +1,21 @@
+services:
+
+    dhms_ms_cache.tag_aware_adapter_factory:
+        class: DhMs\CacheBundle\Service\Cache\TagAwareAdapterFactory
+        arguments:
+            - '@parameter_bag'
+
+    dhms_ms_cache.tag_aware_adapter:
+        class: Symfony\Component\Cache\Adapter\TagAwareAdapterInterface
+        factory: [ '@dhms_ms_cache.tag_aware_adapter_factory', 'createAdapter' ]
+
+    dhms_ms_cache.cache_provider:
+        class: DhMs\CacheBundle\Service\Cache\CacheProvider
+        arguments:
+            - '@dhms_ms_cache.tag_aware_adapter'
+
+    dhms_ms_cache.cacheable_entity_update_subsciber:
+        class: DhMs\CacheBundle\EventSubscriber\CacheableEntityUpdateSubscriber
+        tags: [kernel.event_subscriber]
+        arguments:
+            - '@dhms_ms_cache.cache_provider'
