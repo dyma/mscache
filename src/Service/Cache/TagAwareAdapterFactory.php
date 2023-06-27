@@ -29,7 +29,7 @@ class TagAwareAdapterFactory
     public function createAdapter(): TagAwareAdapterInterface
     {
 
-        $service = $this->parameterBag->get('mscache_tag_aware_service');
+        $service = $this->parameterBag->get('dh_ms_cache.mscache_tag_aware_service');
 
         switch ($service) {
 
